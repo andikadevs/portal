@@ -74,5 +74,6 @@
     </div>
 
     <x-flash />
+    @stack('scripts')
 </body>
 </html>
