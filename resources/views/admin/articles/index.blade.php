@@ -21,7 +21,7 @@
                         <td class="px-4 py-3 font-medium">
                             <div class="flex items-center gap-3">
                                 @if ($article->thumbnail)
-                                    <img src="{{ Storage::url($article->thumbnail) }}" alt="" class="h-10 w-16 rounded object-cover">
+                                    <img src="{{ $article->thumbnailUrl() }}" alt="" class="h-10 w-16 rounded object-cover">
                                 @else
                                     <span class="flex h-10 w-16 items-center justify-center rounded text-[0.6rem] text-white" style="background-color: {{ $article->category->color }}">Tanpa gambar</span>
                                 @endif

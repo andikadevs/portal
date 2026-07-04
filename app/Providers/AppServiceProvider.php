@@ -15,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(\App\Services\PexelsService::class, function ($app) {
+            return new \App\Services\PexelsService($app['config']->get('services.pexels.key'));
+        });
     }
 
     /**

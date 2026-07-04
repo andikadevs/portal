@@ -43,6 +43,41 @@ class ArticleManagementTest extends TestCase
         $this->assertStringContainsString('<strong>', $article->body);
     }
 
+    public function test_admin_can_create_article_with_pexels_url(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        $category = Category::factory()->create();
+        $pexelsUrl = 'https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&w=1200';
+
+        $this->actingAs($admin)->post(route('admin.articles.store'), [
+            'title' => 'Artikel Dengan Thumbnail Pexels',
+            'category_id' => $category->id,
+            'body' => '<p>Isi.</p>',
+            'thumbnail_url' => $pexelsUrl,
+            'published_at' => now()->toDateTimeString(),
+        ])->assertRedirect(route('admin.articles.index'));
+
+        $article = Article::firstWhere('title', 'Artikel Dengan Thumbnail Pexels');
+        $this->assertSame($pexelsUrl, $article->thumbnail);
+        $this->assertSame($pexelsUrl, $article->thumbnailUrl());
+    }
+
+    public function test_thumbnail_url_must_be_from_pexels(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        $category = Category::factory()->create();
+
+        $this->actingAs($admin)
+            ->from(route('admin.articles.create'))
+            ->post(route('admin.articles.store'), [
+                'title' => 'Coba URL Jahat',
+                'category_id' => $category->id,
+                'body' => '<p>x</p>',
+                'thumbnail_url' => 'https://evil.example.com/x.jpg',
+            ])
+            ->assertSessionHasErrors('thumbnail_url');
+    }
+
     public function test_article_requires_title_and_category(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);

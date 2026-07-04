@@ -69,9 +69,7 @@ class ArticleController extends Controller
 
     public function destroy(Article $article): RedirectResponse
     {
-        if ($article->thumbnail) {
-            Storage::disk('public')->delete($article->thumbnail);
-        }
+        $this->deleteLocalThumbnail($article);
 
         $article->delete();
 
@@ -97,14 +95,28 @@ class ArticleController extends Controller
         ];
 
         if ($request->hasFile('thumbnail')) {
-            if ($article?->thumbnail) {
-                Storage::disk('public')->delete($article->thumbnail);
-            }
-
+            // Upload manual: file baru menggantikan thumbnail lama (jika berupa file lokal).
+            $this->deleteLocalThumbnail($article);
             $data['thumbnail'] = $request->file('thumbnail')->store('thumbnails', 'public');
+        } elseif ($request->filled('thumbnail_url')) {
+            // Pilihan dari Pexels: simpan URL eksternal langsung.
+            $this->deleteLocalThumbnail($article);
+            $data['thumbnail'] = $request->string('thumbnail_url')->value();
         }
 
         return $data;
+    }
+
+    /**
+     * Hapus file thumbnail lokal (abaikan jika thumbnail berupa URL eksternal).
+     */
+    protected function deleteLocalThumbnail(?Article $article): void
+    {
+        $thumbnail = $article?->thumbnail;
+
+        if ($thumbnail && ! str_starts_with($thumbnail, 'http')) {
+            Storage::disk('public')->delete($thumbnail);
+        }
     }
 
     /**

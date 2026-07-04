@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 #[Fillable([
     'title',
@@ -29,6 +30,22 @@ class Article extends Model
         return [
             'published_at' => 'datetime',
         ];
+    }
+
+    /**
+     * URL thumbnail — mendukung URL eksternal (mis. Pexels) maupun file upload lokal.
+     */
+    public function thumbnailUrl(): ?string
+    {
+        if (blank($this->thumbnail)) {
+            return null;
+        }
+
+        if (str_starts_with($this->thumbnail, 'http://') || str_starts_with($this->thumbnail, 'https://')) {
+            return $this->thumbnail;
+        }
+
+        return Storage::disk('public')->url($this->thumbnail);
     }
 
     /**

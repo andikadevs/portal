@@ -6,7 +6,7 @@
         <div class="aspect-video overflow-hidden bg-line">
             @if ($article->thumbnail)
                 <img
-                    src="{{ Storage::url($article->thumbnail) }}"
+                    src="{{ $article->thumbnailUrl() }}"
                     alt="{{ $article->title }}"
                     loading="lazy"
                     class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"

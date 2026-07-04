@@ -96,6 +96,12 @@
             <p>&copy; {{ date('Y') }} NewsPortal. Kabar tepercaya setiap hari.</p>
             <a href="{{ route('about') }}" class="hover:text-brand">Tentang redaksi</a>
         </div>
+        <div class="border-t border-line">
+            <p class="mx-auto max-w-6xl px-4 py-3 text-center text-xs text-muted sm:px-6">
+                Dikembangkan oleh
+                <a href="https://andikads.vercel.app" target="_blank" rel="noopener" class="font-semibold text-brand hover:text-action hover:underline">Andika</a>
+            </p>
+        </div>
     </footer>
 
     <x-flash />

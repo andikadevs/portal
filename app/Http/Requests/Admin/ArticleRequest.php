@@ -22,6 +22,8 @@ class ArticleRequest extends FormRequest
             'excerpt' => ['nullable', 'string', 'max:280'],
             'body' => ['required', 'string'],
             'thumbnail' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            // URL thumbnail dari pemilih Pexels (hanya diizinkan dari domain Pexels).
+            'thumbnail_url' => ['nullable', 'url', 'starts_with:https://images.pexels.com/'],
             'published_at' => ['nullable', 'date'],
         ];
     }

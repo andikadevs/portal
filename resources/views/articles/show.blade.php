@@ -25,7 +25,7 @@
         {{-- Thumbnail --}}
         @if ($article->thumbnail)
             <figure class="mt-6">
-                <img src="{{ Storage::url($article->thumbnail) }}" alt="{{ $article->title }}" class="w-full rounded-xl border border-line object-cover">
+                <img src="{{ $article->thumbnailUrl() }}" alt="{{ $article->title }}" class="w-full rounded-xl border border-line object-cover">
             </figure>
         @endif
 

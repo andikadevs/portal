@@ -58,6 +58,21 @@ class DatabaseSeeder extends Seeder
             return [$def['name'] => $category];
         });
 
+        // Kumpulan thumbnail dari Pexels (URL CDN langsung) per kategori.
+        $pexels = [
+            'Teknologi' => [373543, 1181671, 546819, 1263349],
+            'Olahraga' => [274422, 3448250, 5474028],
+            'Politik' => [1550337, 6802042],
+            'Pendidikan' => [256541, 289737],
+            'Ekonomi' => [210607, 259027, 5212345],
+        ];
+        $pexelsUrl = fn (int $id): string => "https://images.pexels.com/photos/{$id}/pexels-photo-{$id}.jpeg?auto=compress&cs=tinysrgb&w=1200";
+        $thumbFor = function (string $categoryName, int $index) use ($pexels, $pexelsUrl): string {
+            $pool = $pexels[$categoryName] ?? $pexels['Teknologi'];
+
+            return $pexelsUrl($pool[$index % count($pool)]);
+        };
+
         // --- Artikel kurasi (judul realistis) per kategori ---
         $curated = [
             'Teknologi' => [
@@ -86,13 +101,14 @@ class DatabaseSeeder extends Seeder
         foreach ($curated as $categoryName => $titles) {
             $category = $categories[$categoryName];
 
-            foreach ($titles as $title) {
+            foreach (array_values($titles) as $i => $title) {
                 Article::factory()
                     ->for($category)
                     ->for($authors->random(), 'author')
                     ->create([
                         'title' => $title,
                         'slug' => Str::slug($title),
+                        'thumbnail' => $thumbFor($categoryName, $i),
                     ]);
             }
         }
@@ -101,12 +117,11 @@ class DatabaseSeeder extends Seeder
         $teknologi = $categories['Teknologi'];
         $teknologiCount = $teknologi->articles()->count();
 
-        if ($teknologiCount < 12) {
+        for ($i = $teknologiCount; $i < 12; $i++) {
             Article::factory()
-                ->count(12 - $teknologiCount)
                 ->for($teknologi)
                 ->for($authors->random(), 'author')
-                ->create();
+                ->create(['thumbnail' => $thumbFor('Teknologi', $i)]);
         }
 
         // --- Komentar contoh pada sebagian artikel ---

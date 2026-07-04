@@ -7,7 +7,7 @@
                 <a href="{{ route('articles.show', $lede) }}" class="group block overflow-hidden rounded-xl border border-line bg-white">
                     <div class="aspect-video overflow-hidden bg-line">
                         @if ($lede->thumbnail)
-                            <img src="{{ Storage::url($lede->thumbnail) }}" alt="{{ $lede->title }}" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            <img src="{{ $lede->thumbnailUrl() }}" alt="{{ $lede->title }}" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
                         @else
                             <div class="flex h-full w-full items-center justify-center" style="background-color: {{ $lede->category->color }}1a">
                                 <span class="kicker text-lg" style="color: {{ $lede->category->color }}">{{ $lede->category->name }}</span>

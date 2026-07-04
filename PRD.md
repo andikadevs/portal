@@ -1,7 +1,7 @@
 # PRD — Portal Berita "NewsPortal"
 ### Product Requirements Document · Laravel Edition
 
-**Versi:** 1.0
+**Versi:** 1.1 (stack diperbarui ke Laravel 13 / PHP 8.5; auth kustom; Laravel Boost)
 **Tanggal:** 4 Juli 2026
 **Mata Kuliah:** Pemrograman Web 2
 **Basis requirement:** Modul Pertemuan 9–14 + Format Pengumpulan (15a)
@@ -20,8 +20,10 @@ NewsPortal adalah aplikasi web portal berita multi-role. Pengunjung membaca dan 
 
 ### 1.2 Catatan asumsi (diambil karena tidak diatur eksplisit di modul)
 - Modul aslinya menargetkan **PHP Native Prosedural**; PRD ini sengaja memakai **Laravel** atas permintaan. Karena framework tidak dilarang tertulis di dokumen tapi juga tidak eksplisit diperbolehkan, **disarankan konfirmasi ke dosen** sebelum submit final.
-- Stack final: Laravel 12, PHP 8.2+, MySQL 8, Blade + Tailwind CSS (via Vite), CKEditor 5 untuk rich text.
+- Stack final: **Laravel 13**, **PHP 8.5** (min. 8.3), MySQL 8, Blade + Tailwind CSS v4 (via Vite), CKEditor 5 untuk rich text, `mews/purifier` untuk sanitasi HTML.
+- **Autentikasi dibangun kustom** (facade `Auth` + controller/Blade sendiri), bukan Laravel Breeze. Alasan: kebutuhan hanya login/logout (tanpa registrasi publik), starter kit Breeze sudah tidak jadi default sejak Laravel 12, dan seluruh tampilan tetap dikustom sesuai sistem desain Bab 7 — sehingga scaffold Breeze justru mubazir.
 - Role tetap dua sesuai modul: `ketua` dan `admin`. Pengunjung tidak butuh akun.
+- Tooling AI: **Laravel Boost** dipasang (guidelines + skills + MCP server) untuk agentic development.
 
 ---
 
@@ -69,11 +71,11 @@ Registrasi publik, reset password via email, komentar berjenjang/reply, like/sha
 
 | Layer | Pilihan | Alasan |
 |-------|---------|--------|
-| Framework | Laravel 12 (PHP 8.2+) | Diminta; konvensi rapi, keamanan bawaan |
-| Auth scaffold | Laravel Breeze (Blade stack) | Ringan, Blade+Tailwind, mudah dikustom untuk multi-role |
+| Framework | Laravel 13 (PHP 8.5, min 8.3) | Diminta; konvensi rapi, keamanan bawaan |
+| Auth | Kustom (facade `Auth` + FormRequest + Blade) | Hanya butuh login/logout; kontrol penuh atas tampilan & multi-role |
 | Database | MySQL 8 | Sesuai modul |
-| View | Blade + komponen | Server-rendered, cocok untuk konten |
-| Styling | Tailwind CSS + Vite | Kontrol penuh atas desain (menghindari tampilan template) |
+| View | Blade + komponen anonim | Server-rendered, cocok untuk konten |
+| Styling | Tailwind CSS v4 + Vite | Kontrol penuh atas desain (menghindari tampilan template) |
 | Rich text | CKEditor 5 | Kontinuitas dengan modul P14 |
 | Deploy | Railway (auto-detect Laravel, php-fpm + Caddy) | Diminta |
 
@@ -324,7 +326,7 @@ GET  /statistik
 
 ## 12. Urutan Build (disarankan, mepet waktu)
 
-1. `laravel new`, install Breeze (Blade), Tailwind, koneksi DB lokal.
+1. `laravel new` (Laravel 13), auth kustom (login/logout), Tailwind v4, koneksi DB lokal (MySQL).
 2. Migration + model + relasi + seeder (user, kategori, ≥7 artikel).
 3. Middleware `role` + proteksi area admin + menu role-aware.
 4. CRUD kategori → CRUD artikel + upload → CRUD user.

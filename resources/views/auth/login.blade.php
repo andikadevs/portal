@@ -73,6 +73,10 @@
         <p class="mt-6 text-center text-sm text-muted">
             <a href="{{ route('home') }}" class="hover:text-brand">&larr; Kembali ke beranda</a>
         </p>
+        <p class="mt-2 text-center text-xs text-muted">
+            Dikembangkan oleh
+            <a href="https://andikads.vercel.app" target="_blank" rel="noopener" class="font-semibold text-brand hover:text-action hover:underline">Andika</a>
+        </p>
     </div>
 </body>
 </html>

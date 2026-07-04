@@ -44,6 +44,10 @@
                         @csrf
                         <button type="submit" class="w-full rounded-md px-3 py-2 text-left text-white/75 transition-colors hover:bg-white/10 hover:text-white">Keluar</button>
                     </form>
+                    <p class="px-3 pt-2 text-[0.7rem] text-white/40">
+                        Dev by
+                        <a href="https://andikads.vercel.app" target="_blank" rel="noopener" class="font-semibold text-white/70 hover:text-white hover:underline">Andika</a>
+                    </p>
                 </div>
             </nav>
         </aside>

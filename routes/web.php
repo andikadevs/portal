@@ -46,6 +46,8 @@ Route::middleware(['auth', 'role:ketua,admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('dasbor')->name('admin.')->group(function () {
+        Route::get('pexels/cari', [\App\Http\Controllers\Admin\PexelsController::class, 'search'])->name('pexels.search');
+
         Route::resource('artikel', AdminArticleController::class)
             ->parameters(['artikel' => 'article'])
             ->names('articles')
