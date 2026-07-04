@@ -11,6 +11,7 @@ seluruh sistem termasuk user dan statistik.
 - **Blade** + **Tailwind CSS v4** (Vite)
 - **CKEditor 5** (rich text) · `mews/purifier` (sanitasi HTML)
 - Autentikasi kustom (facade `Auth`) — bukan Breeze
+- **Pexels** (opsional) — pilih thumbnail langsung dari Pexels di dasbor
 - **Laravel Boost** (agentic dev tooling: guidelines, skills, MCP)
 
 ## Fitur (peta ke PRD F-01…F-15)
