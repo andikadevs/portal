@@ -1,10 +1,11 @@
+@props(['title' => null, 'description' => null])
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ $description ?? 'NewsPortal — kabar terbaru seputar teknologi, olahraga, politik, pendidikan, dan ekonomi.' }}">
-    <title>{{ isset($title) ? $title.' — NewsPortal' : 'NewsPortal — Kabar tepercaya setiap hari' }}</title>
+    <title>{{ $title ? $title.' — NewsPortal' : 'NewsPortal — Kabar tepercaya setiap hari' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen bg-paper text-ink antialiased">

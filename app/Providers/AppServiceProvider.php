@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         }
 
         // Bagikan daftar kategori ke navbar publik.
-        View::composer('layouts.public', function ($view): void {
+        View::composer('components.layouts.public', function ($view): void {
             $view->with('navCategories', Category::orderBy('name')->get());
         });
 
