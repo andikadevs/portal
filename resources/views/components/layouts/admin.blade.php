@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>document.documentElement.classList.add('js')</script>
     <title>{{ $title ? $title.' — Dasbor NewsPortal' : 'Dasbor NewsPortal' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

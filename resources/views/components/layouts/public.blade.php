@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>document.documentElement.classList.add('js')</script>
     <meta name="description" content="{{ $description ?? 'NewsPortal — kabar terbaru seputar teknologi, olahraga, politik, pendidikan, dan ekonomi.' }}">
     <title>{{ $title ? $title.' — NewsPortal' : 'NewsPortal — Kabar tepercaya setiap hari' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
