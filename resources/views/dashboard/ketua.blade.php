@@ -15,10 +15,10 @@
 
     <div class="mt-8 grid gap-6 lg:grid-cols-2">
         <section>
-            <h2 class="mb-3 font-[family-name:var(--font-display)] text-lg font-bold">Artikel terbaru</h2>
+            <h2 class="mb-3 section-title text-lg">Artikel terbaru</h2>
             <div class="overflow-hidden rounded-xl border border-line bg-white">
                 <table class="w-full text-left text-sm">
-                    <thead class="border-b border-line bg-paper text-muted">
+                    <thead class="border-b border-line bg-surface text-muted">
                         <tr><th class="px-4 py-3 font-semibold">Judul</th><th class="px-4 py-3 font-semibold">Penulis</th></tr>
                     </thead>
                     <tbody class="divide-y divide-line">
@@ -38,7 +38,7 @@
         </section>
 
         <section>
-            <h2 class="mb-3 font-[family-name:var(--font-display)] text-lg font-bold">Komentar terbaru</h2>
+            <h2 class="mb-3 section-title text-lg">Komentar terbaru</h2>
             <div class="space-y-3">
                 @forelse ($recentComments as $comment)
                     <div class="rounded-lg border border-line bg-white p-4">

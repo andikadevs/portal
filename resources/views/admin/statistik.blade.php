@@ -9,7 +9,7 @@
     <div class="mt-8 grid gap-6 lg:grid-cols-2">
         {{-- Distribusi artikel per kategori --}}
         <section class="rounded-xl border border-line bg-white p-5">
-            <h2 class="mb-4 font-[family-name:var(--font-display)] text-lg font-bold">Artikel per kategori</h2>
+            <h2 class="mb-4 section-title text-lg">Artikel per kategori</h2>
             <div class="space-y-3">
                 @foreach ($perCategory as $category)
                     <div>
@@ -30,10 +30,10 @@
 
         {{-- Kontribusi per penulis --}}
         <section class="rounded-xl border border-line bg-white p-5">
-            <h2 class="mb-4 font-[family-name:var(--font-display)] text-lg font-bold">Kontribusi penulis</h2>
+            <h2 class="mb-4 section-title text-lg">Kontribusi penulis</h2>
             <div class="overflow-hidden rounded-lg border border-line">
                 <table class="w-full text-left text-sm">
-                    <thead class="border-b border-line bg-paper text-muted">
+                    <thead class="border-b border-line bg-surface text-muted">
                         <tr><th class="px-4 py-2 font-semibold">Penulis</th><th class="px-4 py-2 font-semibold">Peran</th><th class="px-4 py-2 text-right font-semibold">Artikel</th></tr>
                     </thead>
                     <tbody class="divide-y divide-line">

@@ -6,7 +6,7 @@
 
     <div class="overflow-hidden rounded-xl border border-line bg-white">
         <table class="w-full text-left text-sm">
-            <thead class="border-b border-line bg-paper text-muted">
+            <thead class="border-b border-line bg-surface text-muted">
                 <tr>
                     <th class="px-4 py-3 font-semibold">Nama</th>
                     <th class="px-4 py-3 font-semibold">Slug</th>

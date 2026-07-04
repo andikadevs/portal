@@ -11,10 +11,10 @@
     </div>
 
     <section class="mt-8">
-        <h2 class="mb-3 font-[family-name:var(--font-display)] text-lg font-bold">Artikel terbaru saya</h2>
+        <h2 class="mb-3 section-title text-lg">Artikel terbaru saya</h2>
         <div class="overflow-hidden rounded-xl border border-line bg-white">
             <table class="w-full text-left text-sm">
-                <thead class="border-b border-line bg-paper text-muted">
+                <thead class="border-b border-line bg-surface text-muted">
                     <tr>
                         <th class="px-4 py-3 font-semibold">Judul</th>
                         <th class="px-4 py-3 font-semibold">Kategori</th>
