@@ -98,35 +98,40 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
-        foreach ($curated as $categoryName => $titles) {
-            $category = $categories[$categoryName];
+        // Artikel & komentar hanya di-seed sekali. Blok ini idempoten: aman
+        // dijalankan ulang tiap deploy (mis. dari preDeployCommand di railway.json)
+        // tanpa menduplikasi data atau menabrak unique constraint pada slug.
+        if (Article::query()->doesntExist()) {
+            foreach ($curated as $categoryName => $titles) {
+                $category = $categories[$categoryName];
 
-            foreach (array_values($titles) as $i => $title) {
-                Article::factory()
-                    ->for($category)
-                    ->for($authors->random(), 'author')
-                    ->create([
-                        'title' => $title,
-                        'slug' => Str::slug($title),
-                        'thumbnail' => $thumbFor($categoryName, $i),
-                    ]);
+                foreach (array_values($titles) as $i => $title) {
+                    Article::factory()
+                        ->for($category)
+                        ->for($authors->random(), 'author')
+                        ->create([
+                            'title' => $title,
+                            'slug' => Str::slug($title),
+                            'thumbnail' => $thumbFor($categoryName, $i),
+                        ]);
+                }
             }
+
+            // --- Pastikan >=7 artikel di satu kategori (Teknologi) untuk uji pagination ---
+            $teknologi = $categories['Teknologi'];
+            $teknologiCount = $teknologi->articles()->count();
+
+            for ($i = $teknologiCount; $i < 12; $i++) {
+                Article::factory()
+                    ->for($teknologi)
+                    ->for($authors->random(), 'author')
+                    ->create(['thumbnail' => $thumbFor('Teknologi', $i)]);
+            }
+
+            // --- Komentar contoh pada sebagian artikel ---
+            Article::query()->inRandomOrder()->limit(6)->get()->each(function (Article $article): void {
+                Comment::factory()->count(random_int(1, 4))->for($article)->create();
+            });
         }
-
-        // --- Pastikan >=7 artikel di satu kategori (Teknologi) untuk uji pagination ---
-        $teknologi = $categories['Teknologi'];
-        $teknologiCount = $teknologi->articles()->count();
-
-        for ($i = $teknologiCount; $i < 12; $i++) {
-            Article::factory()
-                ->for($teknologi)
-                ->for($authors->random(), 'author')
-                ->create(['thumbnail' => $thumbFor('Teknologi', $i)]);
-        }
-
-        // --- Komentar contoh pada sebagian artikel ---
-        Article::query()->inRandomOrder()->limit(6)->get()->each(function (Article $article): void {
-            Comment::factory()->count(random_int(1, 4))->for($article)->create();
-        });
     }
 }
